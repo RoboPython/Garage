@@ -1,0 +1,70 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[document]{ragged2e}
+\usepackage{multirow}
+\usepackage{tabularx}
+
+
+\newlength{\Oldarrayrulewidth}
+\newcommand{\Cline}[2]{%
+\noalign{\global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}}%
+\noalign{\global\setlength{\arrayrulewidth}{#1}}\cline{#2}%
+\noalign{\global\setlength{\arrayrulewidth}{\Oldarrayrulewidth}}}
+
+
+
+
+\begin{document}
+
+	\noindent	\textbf{CHAPEL LANE GARAGE SCARNING LIMITED}  \hfill \textbf{INVOICE} \\
+	\vspace*{0.3in}
+	THE GARAGE \hfill VAT REG. NO: 812 2820 63\\
+	CHAPEL LANE \hfill TAX DATE: 22/12/15 \\
+	SCARNING \hfill Invoice: 334 \\
+	NORFOLK, NR19 2PE \\
+	\vspace*{0.2in}
+	01362 687278 \\
+	rsnorfolk@btconnect.com
+
+	\vspace*{0.3in}
+	Customer: bob
+	\break
+	
+
+	{\renewcommand{\arraystretch}{2}%
+	\begin{tabularx}{\textwidth}{|X|X|X|X|X|}
+	\cline{1-5}
+	\Cline{2pt}{2-5}
+	& \bf{Mileage} & \bf{Vehicle} & \bf{Reg No.} & \bf{Payment} \\
+	\Cline{2pt}{2-5}
+	 & 100 & vaux Zafira & FD08 ZNH &  \\
+	\Cline{2pt}{1-5}
+	\bf{Descriptio}n & \bf{Qty} & \bf{Rate} & \bf{VAT AMT} & \bf{Amount} \\
+	\Cline{2pt}{1-5}
+
+	
+
+	\cline{1-5}
+	\multicolumn{3}{c|}{} & \multicolumn{2}{|c|}{SUBTOTAL: \hfill \pounds 100}  \\
+	\cline{4-5}
+	\multicolumn{3}{c|}{} & \multicolumn{2}{|c|}{VAT TOTAL: \hfill \pounds 20}  \\
+	\cline{4-5}
+	\multicolumn{3}{c|}{} & \multicolumn{2}{|c|}{Payments/Credits: \hfill \pounds 0.00}  \\
+	\cline{4-5}
+	\multicolumn{3}{c|}{} & \multicolumn{2}{|c|}{TOTAL: \hfill \pounds 100}  \\
+	\cline{4-5}
+
+	\end{tabularx}
+
+				
+
+
+
+
+
+	
+
+				
+	
+
+\end{document}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html ng-app="myApp">
+	<head>
+		<meta charset="utf8"/>
+		<base href="/"/>
+		<title>Garage Software</title>
+		<link rel="stylesheet" href="/css/app.css"/>
+	</head>
+	<body>
+		<div ng-controller="AppCtrl">
+			<ul class="menu">
+				<li><a href="record">Record</a></li>
+				<li><a href="invoice">Invoice</a></li>
+			</ul>
+			<div ng-view="ng-view"></div>
+		</div>
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+		<script src="js/lib/angular/angular.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/services.js"></script>
+		<script src="js/controllers.js"></script>
+		<script src="js/filters.js"></script>
+		<script src="js/directives.js"></script>
+	</body>
+</html>

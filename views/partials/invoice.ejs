@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<div class="container-fluid" style="width:100%">
+	<div ng-controller="invoiceCtrl">
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="row">
+					<div class="col-md-3">
+						<h2>Invoice Maker</h2>
+						{{test}}
+					</div>
+				</div>
+				<br>
+				<br>
+				<div class="row">
+					<div class="col-md-3 col-md-offset-2">
+						<h5>Item to Add</h5>
+					</div>
+					<div class="col-md-1">
+						<h5>Unit Price</h5>
+					</div>
+					<div class="col-md-1">
+						<h5>Quantity</h5>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-md-offset-2">
+						<input type="text" ng-model="input.item" class="form-control">
+					</div>
+					<div class="col-md-1">
+						<input type="text" ng-model="input.price" class="form-control">
+					</div>
+					<div class="col-md-1">
+						<input type="text" ng-model="input.quantity"  class="form-control">
+					</div>
+					<div class="col-md-3">
+						<button  type="button" ng-click="addItem(input.item,input.price,input.quantity)" class="btn btn-default">Add Item</button>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-md-7 col-md-offset-2 divider">
+						<br>
+					</div>
+				</div>
+				<div ng-repeat="x in invoice.items">
+					<div class="row">
+						<div class="col-md-3 col-md-offset-2">
+							<h4>{{x.item}}</h4>
+						</div>
+						<div class="col-md-1">
+							<h4>{{x.price | currency : "£" : 2}}</h4>
+						</div>
+						<div class="col-md-1">
+							<h4>{{x.quantity}}</h4>
+						</div>
+						<div class="col-md-1">
+							<h4>{{x.price * x.quantity | currency : "£" : 2}}</h4>
+						</div>
+						<div>
+							<button  type="button" ng-click="removeItem(x.id)" class="btn btn-default">Remove</button>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-md-2 col-md-offset-5 divider">
+						<h4 >Total ex. VAT</h4>
+					</div>
+					<div class="col-md-1 divider">
+						<h4>{{invoice.totalExVat | currency : "£" : 2}}</h4>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2 col-md-offset-5 divider">
+						<h4 >VAT</h4>
+					</div>
+					<div class="col-md-1 divider">
+						<h4>{{invoice.vat | currency : "£" : 2}}</h4>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2 col-md-offset-5 divider">
+						<h4 >Total inc. VAT</h4>
+					</div>
+					<div class="col-md-1 divider">
+						<h4>{{invoice.totalIncVat | currency : "£" : 2}}</h4>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-md-3 col-md-offset-5 ">
+						<button  type="button" ng-click="generateInvoice(1)" class="btn btn-default">Generate invoice</button>
+					</div>
+					<div class="col-md-3 col-md-offset-5 ">
+						<embed ng-src="{{content}}" style="width:200px;height:200px;"></embed>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

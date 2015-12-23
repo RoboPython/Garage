@@ -1,0 +1,90 @@
+/* app css stylesheet */
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+
+.menu > li:nth-child(1):before {
+  content: "";
+  padding: 0;
+}
+
+body{
+  background-color: #eeeeee;
+}
+
+.login-container {
+  margin-top: 50px;
+}
+
+.record-container{
+  border-right-style:solid;
+  border-color:#dddddd;
+  border-width:3px;
+}
+
+.vehicle-result{
+  margin-top: 5%;
+}
+
+.mileage-label{
+  margin-top: 6px;
+}
+
+.invoice-page{
+  margin-top: 20px;
+  background-color: #ffffff;
+  height: 100%
+}
+
+h3{
+  margin-top: 0px;
+}
+
+
+.pound-sign{
+  margin-bottom: 10px;
+  margin-top: 4px;
+  margin-right:2px;
+  margin-left: 15px; 
+}
+
+div.scroll {
+  height: 150px;
+  width: 100%;
+  overflow: auto;
+  border: 1px solid #dddddd;
+  background-color: #ffffff;
+  padding: 8px;
+}
+
+div.invoice{
+  margin: 4px;
+  border: 1px solid #dddddd;
+}
+
+.divider{
+	border-top-width: 3px;
+	border-top-style: solid;
+	border-top-color: #dddddd;
+}

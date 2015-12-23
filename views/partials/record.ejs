@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<div class="container-fluid" style="width:100%">
+	<div ng-controller="recordCtrl">
+		<div class="row">
+			<div class = "col-md-4 col-md-offset-1 record-container">
+				<div class="row">
+					<div class="col-md-6">
+						<h3>Records</h3>
+					</div>
+					<div class="col-md-6">
+						<button style="margin-top:20px" type="button" ng-click="clearRecords()" class="btn btn-default">Clear Records</button>
+					</div>
+				</div>
+				<form autocomplete="off">
+					<div class="row">
+						<div class="col-md-3">
+							<select class="form-control" ng-model="person.title">
+								<option value="mr">Mr</option>
+								<option value="mrs">Mrs</option>
+								<option value="miss">Miss</option>
+								<option value="ms">Ms</option>
+								<option value="dr">Dr</option>
+								<option value="mx">Mx</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-8">
+							<input type="text" ng-change="peopleSearch(person)" ng-model='person.givenName' class="form-control" list="givenname" name="browser" placeholder="First Name" autocomplete="off">
+							<datalist id="givenname">
+								<div ng-repeat="person in suggestions">
+									<option value ={{person.givenName}}>{{person.givenName}}</option>
+								</div>
+							</datalist>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-8">
+							<input type="text" class="form-control" ng-change="peopleSearch(person)" ng-model='person.familyName' placeholder = 'Last Name' list="familyname">
+							<datalist id="familyname">
+								<div ng-repeat="person in suggestions">
+									<option value ={{person.familyName}}>{{person.familyName}}</option>
+								</div>
+							</datalist>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-8">
+							<input type="text" class="form-control" ng-model='person.location.address1' placeholder='Address Line 1' list="address1" ng-change="peopleSearch(person)">
+							<datalist id="address1">
+								<div ng-repeat="person in suggestions">
+									<option value ={{person.location.address1}}>{{person.location.address1}}</option>
+								</div>
+							</datalist>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-8">
+							<input ng-change="peopleSearch(person)" type="text" class="form-control" ng-model="person.location.address2" placeholder='Address Line 2' list=address2>
+						</div>
+						<datalist id="address2">
+							<div ng-repeat="person in suggestions">
+								<option value ={{person.location.address2}}>{{person.location.address2}}</option>
+							</div>
+						</datalist>
+					</div>
+					<div class="row">
+						<div class="col-md-8">
+							<input ng-change="peopleSearch(person)" type="text" class="form-control" placeholder='Address Line 3' ng-model="person.location.address3" list="address">
+						</div>
+						<datalist id="address3">
+							<div ng-repeat="person in suggestions">
+								<option value ={{person.location.address3}}>{{person.location.address3}}</option>
+							</div>
+						</datalist>
+
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<input ng-change="peopleSearch(person)"type="text" class="form-control" placeholder='Postcode' ng-model="person.location.postcode" list="postcode">
+						</div>
+						<datalist id="postcode">
+							<div ng-repeat="person in suggestions">
+								<option value ={{person.location.postcode}}>{{person.location.postcode}}</option>
+							</div>
+						</datalist>
+
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-8">
+							<input ng-change="peopleSearch(person)" type="text" class="form-control" placeholder='Home Phone Number' ng-model="person.contact.home" list="home">
+						</div>
+						<datalist id="home">
+							<div ng-repeat="person in suggestions">
+								<option value ={{person.contact.home}}>{{person.contact.home}}</option>
+							</div>
+						</datalist>
+
+					</div>
+					<div class="row">
+						<div class="col-md-8">
+							<input ng-change="peopleSearch(person)"type="text" class="form-control" placeholder='Mobile Phone Number' ng-model="person.contact.mobile" list="mobile">
+						</div>
+						<datalist id="mobile">
+							<div ng-repeat="person in suggestions">
+								<option value ={{person.contact.mobile}}>{{person.contact.mobile}}</option>
+							</div>
+						</datalist>
+
+					</div>
+					<div class="row">
+						<div class="col-md-8">
+							<input ng-change="peopleSearch(person)" type="text" class="form-control" placeholder='Email Address' ng-model="person.contact.email" list="email">
+						</div>
+						<datalist id="email">
+							<div ng-repeat="person in suggestions">
+								<option value ={{person.contact.email}}>{{person.contact.email}}</option>
+							</div>
+						</datalist>
+
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-8">
+							<h4>How to contact the customers</h4>
+							<input ng-model="person.allowedContact.text" type="checkbox" name="text" value="text" >Text message<br>
+							<input ng-model="person.allowedContact.email" type="checkbox" name="vehicle" value="email" >Email<br>
+							<input ng-model="person.allowedContact.letter" type="checkbox" name="vehicle" value="letter" >Letter<br>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-8">
+							<button ng-click="save(person,vehicle)" type="button" class="btn btn-default">Save</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class = "col-md-6">
+				<h3>Vehicles</h3>
+				<div class="row">
+					<div class="col-md-8">
+						<input ng-show="!selectMode" ng-model="vehicleSearchBar" type="text" class="form-control" placeholder="Registration plate of car to search for" >
+						<input ng-show="selectMode" ng-model="vehicleSearchBar" type="text" class="form-control" placeholder="Registration plate of car to add to person">
+					</div>
+					<div class="col-md-4">
+						<button ng-show="!selectMode" type="button" ng-click="vehicleSearch(vehicleSearchBar)" class="btn btn-default">Go!</button>
+						<button ng-show="selectMode" type="button" ng-click="addNewVehicleToOwner(vehicleSearchBar,person._id)" class="btn btn-default">Add</button>
+					</div>
+					<!--reg, chassis, date of first registered, cc, mileage, fuel-->
+				</div>
+				<div ng-show="selectMode" class="row">
+					<br>
+					<br>
+					<div class="col-md-12">
+						<div class="scroll">
+							<div ng-repeat="x in vehicleList">
+								<div class="invoice">
+									<div class="row">
+										<div class="col-md-2">
+											<h4>{{x.regNum}}</h4>
+										</div>
+										<div class= "col-md-3">
+											<h4>{{x.make}}</h4>
+										</div>
+										<div class= "col-md-3">
+											<h4>{{x.model}}</h4>
+										</div>
+										<div class= "col-md-3">
+											<h4>{{x.colour}}</h4>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-5">
+											<div class="btn-group" role="group" aria-label="...">
+												<button ng-click="selectVehicle(x)" type="button" class="btn btn-default">Select</button>
+												<button type="button" style="background-color:#ff4d4d;" class="btn btn-default">Delete</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div  ng-show="vehicle.regNum != null && !selectMode" class="vehicle-result">
+					<p ng-show="vehicle.owner =='unassigned'">This vehicle does not have an owner, if this is a new customer, fill in their details and hit save. If you wish to add a new car to an existing customer, click clear, search for the customer record, then use the add car feature. </p>				
+					<div class="row">
+						<div class="col-md-1">
+							<button type="button" ng-click="selectMode = true" ng-disabled="vehicle.owner =='unassigned'" class="btn btn-default">Back</button>
+						</div>
+						<div class="col-md-4 text-right">
+							<p>Registration Number:</p>
+						</div>
+						<div class="col-md-4">
+							<p>{{vehicle.regNum}}</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 col-md-offset-1 text-right mileage-label">
+							<p>Chassis Number</p>
+						</div>
+						<div class="col-md-4">
+							<input ng-model="vehicle.chassis" id="chassisNum" type="text" class="form-control" placeholder="Insert Chassis Number">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 col-md-offset-1 text-right">
+							<p>Make:</p>
+						</div>
+						<div class="col-md-4">
+							<p>{{vehicle.make}}</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 col-md-offset-1 text-right">
+							<p>model:</p>
+						</div>
+						<div class="col-md-4">
+							<p>{{vehicle.model}}</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 col-md-offset-1 text-right">
+							<p>Colour:</p>
+						</div>
+						<div class="col-md-4">
+							<p>{{vehicle.colour}}</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 col-md-offset-1 text-right">
+							<p>Date First Registered:</p>
+						</div>
+						<div class="col-md-4">
+							<p>{{vehicle.firstReg}}</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 col-md-offset-1 text-right">
+							<p>Cylinder Capacity:</p>
+						</div>
+						<div class="col-md-4">
+							<p>{{vehicle.cc}}cc</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 col-md-offset-1 text-right">
+							<p>Fuel Type:</p>
+						</div>
+						<div class="col-md-4">
+							<p>{{vehicle.fuel}}</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 col-md-offset-1 text-right">
+							<p>MOT Expires:</p>
+						</div>
+						<div class="col-md-4">
+							<p>{{vehicle.motDue}}</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 col-md-offset-1 text-right mileage-label">
+							<p>Mileage:</p>
+						</div>
+						<div class="col-md-4">
+							<input ng-model="vehicle.mileage" type="text" class="form-control" placeholder="Insert Vehicle Mileage">
+						</div>
+					</div>
+					<br>
+					<br>
+					<div ng-show="vehicle.invoices.length > 0" class="row">
+						<div class="col-md-8 col-md-offset-2">
+							<div class="scroll">
+								<div class="invoice row">
+									<div class="col-md-6">
+										<h4>20/12/14</h4>
+									</div>
+									<div class= "col-md-3">
+										<h4>£9.00</h4>
+									</div>
+									<div class="col-md-3">
+										<button type="button" class="btn btn-default" style="margin-top:3px;">Open</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
