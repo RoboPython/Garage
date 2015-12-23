@@ -6,7 +6,8 @@
 				<div class="row">
 					<div class="col-md-3">
 						<h2>Invoice Maker</h2>
-						{{test}}
+						<h4>Customer: {{person.givenName}} {{person.familyName}}</h4>
+						<h4>Vehicle: {{vehicle.make}} {{vehicle.model}}</h4>
 					</div>
 				</div>
 				<br>
@@ -37,11 +38,24 @@
 					</div>
 				</div>
 				<br>
-				<div class="row">
-					<div class="col-md-7 col-md-offset-2 divider">
-						<br>
+				<div class="row divider">
+					<div class="col-md-3 col-md-offset-2">
+						<h4>Item</h4>
+					</div>
+					<div class="col-md-1">
+						<h4>Unit Price</h4>
+					</div>
+					<div class="col-md-1">
+						<h4>Quantity</h4>
+					</div>
+					<div class="col-md-1">
+						<h4>Total</h4>
+					</div>
+					<div class="col-md-1">
+						<h4>Vat</h4>
 					</div>
 				</div>
+
 				<div ng-repeat="x in invoice.items">
 					<div class="row">
 						<div class="col-md-3 col-md-offset-2">
@@ -56,6 +70,9 @@
 						<div class="col-md-1">
 							<h4>{{x.price * x.quantity | currency : "£" : 2}}</h4>
 						</div>
+						<div class="col-md-1">
+							<h4>{{x.vat | currency : "£" : 2}}</h4>
+						</div>
 						<div>
 							<button  type="button" ng-click="removeItem(x.id)" class="btn btn-default">Remove</button>
 						</div>
@@ -63,7 +80,7 @@
 				</div>
 				<br>
 				<div class="row">
-					<div class="col-md-2 col-md-offset-5 divider">
+					<div class="col-md-2 col-md-offset-6 divider">
 						<h4 >Total ex. VAT</h4>
 					</div>
 					<div class="col-md-1 divider">
@@ -71,7 +88,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-2 col-md-offset-5 divider">
+					<div class="col-md-2 col-md-offset-6 divider">
 						<h4 >VAT</h4>
 					</div>
 					<div class="col-md-1 divider">
@@ -79,7 +96,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-2 col-md-offset-5 divider">
+					<div class="col-md-2 col-md-offset-6 divider">
 						<h4 >Total inc. VAT</h4>
 					</div>
 					<div class="col-md-1 divider">
@@ -88,11 +105,8 @@
 				</div>
 				<br>
 				<div class="row">
-					<div class="col-md-3 col-md-offset-5 ">
-						<button  type="button" ng-click="generateInvoice(1)" class="btn btn-default">Generate invoice</button>
-					</div>
-					<div class="col-md-3 col-md-offset-5 ">
-						<embed ng-src="{{content}}" style="width:200px;height:200px;"></embed>
+					<div class="col-md-3 col-md-offset-6 ">
+						<button  type="button" ng-click="generateInvoice(vehicle,person,invoice);saveInvoice(vehicle,person,invoice)" class="btn btn-default">Generate invoice</button>
 					</div>
 				</div>
 			</div>

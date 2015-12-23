@@ -8,44 +8,79 @@ var ejs = require('ejs');
 
 
 
-	        
-router.get('/', function(request, response){
+router.post('/render', function(request, response){
 	
-	fs.readFile('/Users/adam/Documents/Garage Project/perf/views/invoice.ejs', 'utf8', function (err,data) {
+	fs.readFile('/Users/adam/Documents/Garage Project/githubgarage/views/invoice.ejs', 'utf8', function (err,data) {
 		if (err) {
 			return console.log(err);
 		}
-		console.log(data);
-		var rendered = ejs.render(data,{"data":{"customerName":"bob","date":"22/12/15","invoiceNum":334,"mileage":100,"car":"vaux Zafira", "regNum": "FD08 ZNH","invoice":{"items":[{"item":"thing","quantity":2,"rate":1.2,"vat":0.6,"amount":22}],"totalIncVat":100,"totalExVat":100,"vat":20}}})
-		fs.writeFile("/Users/adam/Documents/Garage Project/perf/test.tex", rendered, function(err) {
+
+		var person = request.body.person;
+		var vehicle = request.body.vehicle;
+		var invoice = request.body.invoice;
+		var datetime = new Date();
+
+		console.log(request.body)
+
+		var fillInfo={"data":{"customerName":person.givenName + ' ' +person.familyName,
+					 "date": String(datetime.getDate()) +'/'+ String((datetime.getMonth() + 1))+'/'+String(datetime.getFullYear()),
+					 "invoiceNum":334,
+					 "mileage":vehicle.mileage,
+					 "car":vehicle.make +" "+vehicle.model,
+					 "regNum": vehicle.regNum,
+					 "invoice":{
+								"items":[],
+								"totalIncVat":invoice.totalIncVat.toFixed(2),
+								"totalExVat":invoice.totalExVat.toFixed(2),
+								"vat":invoice.vat.toFixed(2)
+								}
+					}
+			}	
+
+		for (i = 0; i < invoice.items.length; i++) {
+			invoice.items[i].amount =invoice.items[i].amount.toFixed(2);
+			invoice.items[i].vat =invoice.items[i].vat.toFixed(2);
+			invoice.items[i].price =invoice.items[i].price.toFixed(2);
+			fillInfo.data.invoice.items.push(invoice.items[i]);
+
+
+		}
+
+		console.dir(fillInfo.data.invoice.items)
+
+		var rendered = ejs.render(data,fillInfo)
+		fs.writeFile("/Users/adam/Documents/Garage Project/githubgarage/test.tex", rendered, function(err) {
 			if(err) {
 				return console.log(err);
 			}
 				console.log("The file was saved!");
 	
 				spawn = require('child_process').spawn,
-				pdflatex= spawn('pdflatex', ['-output-directory', '/Users/adam/Documents/Garage Project/perf/','test.tex']);
+				pdflatex= spawn('pdflatex', ['-output-directory', '/Users/adam/Documents/Garage Project/githubgarage/','test.tex']);
 
 
 				pdflatex.on('exit', function (code) {
-					console.log('child process exited with code ' + code);
-					var tempFile="/Users/adam/Documents/Garage Project/perf/test.pdf";
-						fs.readFile(tempFile, function (err,data){
-							response.contentType("application/pdf");
-							response.send(data);
-						});
-					});
+					if (code === 0){
+						response.send("sucess")
+					}else{
+						response.statusCode = 500;
+						response.send("failure");
+					}
 				});
 
 		}); 
 
 
 	});
+});
 
-	
-
-
-
+router.get('/view', function(request, response){	
+	var tempFile="/Users/adam/Documents/Garage Project/githubgarage/test.pdf";
+	fs.readFile(tempFile, function (err,data){
+		response.contentType("application/pdf");
+		response.send(data);
+	});
+});
 
 
 module.exports = router;

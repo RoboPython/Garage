@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.10.5)  23 DEC 2015 02:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.10.5)  23 DEC 2015 16:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **test.tex
-(/Users/adam/Documents/Garage Project/perf//test.tex
+(/Users/adam/Documents/Garage Project/githubgarage//test.tex
 LaTeX2e <2015/01/01>
 Babel <3.9l> and hyphenation patterns for 79 languages loaded.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/article.cls
@@ -113,7 +113,7 @@ Package: array 2014/10/28 v2.4c Tabular extension package (FMi)
 )
 \Oldarrayrulewidth=\skip59
 
-No file test.aux.
+(/Users/adam/Documents/Garage Project/githubgarage//test.aux)
 \openout1 = `test.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
@@ -128,6 +128,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
 LaTeX Font Info:    ... okay on input line 17.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
 LaTeX Font Info:    ... okay on input line 17.
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -167,7 +168,7 @@ ABD: EverySelectfont initializing macros
 LaTeX Info: Redefining \selectfont on input line 17.
 
 Underfull \hbox (badness 10000) in paragraph at lines 30--32
-[]\OT1/cmr/m/n/10.95 Customer: bob  
+[]\OT1/cmr/m/n/10.95 Customer: Dave Allen  
  []
 
 
@@ -178,15 +179,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--32
 [1
 
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-(/Users/adam/Documents/Garage Project/perf//test.aux) )
+(/Users/adam/Documents/Garage Project/githubgarage//test.aux) )
 (\end occurred inside a group at level 1)
 
 ### simple group (level 1) entered at line 34 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 1033 strings out of 493089
- 15259 string characters out of 6134842
- 79828 words of memory out of 5000000
+ 1035 strings out of 493089
+ 15433 string characters out of 6134842
+ 80828 words of memory out of 5000000
  4556 multiletter control sequences out of 15000+600000
  6982 words of font info for 25 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -195,8 +196,8 @@ Here is how much of TeX's memory you used:
 /cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmu10.pfb>
-Output written on "/Users/adam/Documents/Garage Project/perf//test.pdf" (1 page
-, 45223 bytes).
+Output written on "/Users/adam/Documents/Garage Project/githubgarage//test.pdf"
+ (1 page, 45124 bytes).
 PDF statistics:
  20 PDF objects out of 1000 (max. 8388607)
  13 compressed objects within 1 object stream

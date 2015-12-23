@@ -10,6 +10,7 @@ var express = require('express'),
   morgan = require('morgan'),
   routes = require('./routes'),
   vehicles= require('./routes/api/vehicles'),
+  invoices = require('./routes/api/invoices'),
   people= require('./routes/api/people'),
   peopleSearch= require('./routes/api/peopleSearch'),
   peopleVehicleCombo= require('./routes/api/peopleVehicleCombo'),
@@ -52,6 +53,7 @@ app.get('/partials/:name', routes.partials);
 // JSON API
 app.use('/api/v1/vehicles', vehicles);
 app.use('/api/v1/people', people);
+app.use('/api/v1/invoices', invoices);
 app.use('/api/v1/peopleSearch',peopleSearch);
 app.use('/api/v1/addNew',peopleVehicleCombo);
 app.use('/api/v1/vehicleByOwner',vehicleByOwner);

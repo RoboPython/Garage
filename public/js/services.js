@@ -43,12 +43,17 @@ angular.module('myApp.services', [])
 
 		this.calculateTotals = function(invoice){
 			var totalExVat = 0;
+			var vat = 0
 
 			for (var i = 0; i < invoice.items.length; i++) {
 				totalExVat += (invoice.items[i].price) * (invoice.items[i].quantity);
 			}
 
-			var vat = totalExVat * this.vatRate
+			for (var i = 0; i < invoice.items.length; i++) {
+				vat += (invoice.items[i].vat)
+			}
+
+
 			var totalIncVat = totalExVat + vat
 			
 			invoice.totalExVat = totalExVat;
@@ -63,9 +68,11 @@ angular.module('myApp.services', [])
 		}
 	
 		this.add = function(item,price,quantity){
-			console.log(this.invoice)
-			this.newEntry = {"id":this.id ,"item":item,"price":parseFloat(price),"quantity":parseFloat(quantity)}
-			console.log(this.newEntry);
+			this.newEntry = {"id":this.id ,"item":item,"price":parseFloat(price),"quantity":parseFloat(quantity),"vat":parseFloat(price) * parseFloat(quantity) * this.vatRate,"amount":parseFloat(price) * parseFloat(quantity) +  parseFloat(price) * parseFloat(quantity) * this.vatRate }
+			if (this.newEntry.item.toLowerCase() == "mot"){
+				this.newEntry.vat = 0;
+			}
+			console.dir(this.newEntry);
 			this.invoice.items.push(this.newEntry);
 			this.id ++
 			return this.calculateTotals(this.invoice)
@@ -81,13 +88,23 @@ angular.module('myApp.services', [])
 			}
 		}
 
-		this.generate = function(){
-			return $http.get('/api/v1/invoiceMaker',{responseType:'arraybuffer'});
+		this.generate = function(vehicle,person,invoice){
+			return $http.post('/api/v1/invoiceMaker/render',{"vehicle":vehicle,"person":person,"invoice":invoice});
 		};
+
+		this.save = function(vehicle,person,invoice){
+			return $http.post('/api/v1/invoices',{"vehicle":vehicle,"person":person,"invoice":invoice});
+		};
+
 
 
 	}])
 	
+	.service('dataSharing', [ function() {
+		this.person = {'location':{},'contact':{},'allowedContact':{}}
+		this.vehicle = {'regNum':null, 'owner':null}
+		this.invoice = {}
+	}])
 	
 
 	.service('peopleService', ['$http', function($http) {

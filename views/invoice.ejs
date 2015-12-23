@@ -42,8 +42,8 @@
 	\bf{Descriptio}n & \bf{Qty} & \bf{Rate} & \bf{VAT AMT} & \bf{Amount} \\
 	\Cline{2pt}{1-5}
 
-	<% for(var i=0; i<data.invoice.items; i++) {%>
-		<%=data.invoice.items[i].item%>& <%=data.invoice.items[i].quantity%>  & <%=data.invoice.items[i].rate%> & <%=data.invoice.items[i].vat%>  & <%=data.invoice.items[i].amount%> \\
+	<% for(var i=0; i<data.invoice.items.length; i++) {%>
+		<%=data.invoice.items[i].item%>& <%=data.invoice.items[i].quantity%>  & <%=data.invoice.items[i].price%> & <%=data.invoice.items[i].vat%>  & <%=data.invoice.items[i].amount%> \\
 	<% } %>
 
 	\cline{1-5}
