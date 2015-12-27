@@ -8,9 +8,14 @@ angular.module('myApp', [
   'myApp.services',
   'myApp.directives'
 ]).
+
 config(function ($routeProvider, $locationProvider) {
-  $routeProvider.
-    when('/record', {
+  $routeProvider
+    .when('/bug', {
+      templateUrl: 'partials/bug',
+      controller: 'bugCtrl'
+    })
+    .when('/record', {
       templateUrl: 'partials/record',
       controller: 'recordCtrl'
     }).
@@ -18,9 +23,7 @@ config(function ($routeProvider, $locationProvider) {
       templateUrl: 'partials/invoice',
       controller: 'invoiceCtrl'
     });
-    //.otherwise({
-    //  redirectTo: '/record'
-    //});
+
 
   $locationProvider.html5Mode(true);
 });

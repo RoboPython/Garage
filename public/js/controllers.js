@@ -18,7 +18,7 @@ angular.module('myApp.controllers', []).
 
   })
 
-  .controller('recordCtrl', ['$scope','vehicleService','peopleService','dataSharing', function($scope,vehicleService,peopleService,dataSharing) {
+	.controller('recordCtrl', ['$scope','$window','vehicleService','peopleService','dataSharing','invoiceService', function($scope,$window,vehicleService,peopleService,dataSharing,invoiceService) {
 	  $scope.person = dataSharing.person;
 	  $scope.vehicle = dataSharing.vehicle;
 	  $scope.selectMode = false;
@@ -37,15 +37,18 @@ angular.module('myApp.controllers', []).
 					.success(function(foundPerson){
 						dataSharing.person = foundPerson;
 						$scope.person = dataSharing.person;
+
 					})
 					.error(function (error) {
 						alert('Unable to load customer data: ' + error.message);
 					});
 					
 					
+					
 
-				}
-				$scope.vehicle.invoices = []//do this properly in future but for now dummy it
+				};
+				
+				
 			})
             .error(function (error) {
 				$scope.status = 'Unable to load vehicle data: ' + error.message;
@@ -103,6 +106,7 @@ angular.module('myApp.controllers', []).
 						if (vehicles.length === 1){
 							dataSharing.vehicle = vehicles[0]
 							$scope.vehicle = dataSharing.vehicle;
+
 						}else{
 							$scope.selectMode =  true;
 						}
@@ -120,6 +124,19 @@ angular.module('myApp.controllers', []).
 	  
 	  }
 
+	  $scope.getInvoices = function(vehicle){
+			$scope.invoiceViewer = true;
+			$scope.result3 = invoiceService.invoiceByVehicle(vehicle)
+				.success(function(invoices){
+					console.log(invoices);
+					dataSharing.vehicle.invoices = invoices.invoiceList
+					$scope.vehicle.invoices = dataSharing.vehicle.invoices;
+				})
+				.error(function (error) {
+					alert('Unable to load invoice data: ' + error.message);
+				})
+	  }
+
 	  $scope.clearRecords = function(){
 		dataSharing.person = {'location':{},'contact':{},'allowedContact':{}};
 		$scope.person = dataSharing.person;
@@ -127,6 +144,7 @@ angular.module('myApp.controllers', []).
 	    $scope.vehicle = dataSharing.vehicle;
 		$scope.vehicleSearchBar = null;
 		$scope.selectMode = false;
+		$scope.invoiceViewer = false;
 	  }
 
 	  $scope.addNewVehicleToOwner = function (regNum,owner){
@@ -141,6 +159,20 @@ angular.module('myApp.controllers', []).
 				}
 			});
 		}
+
+	$scope.generateInvoice = function(record){
+		$scope.result = invoiceService.generateRecord(record)
+		.success(function(successMessage){
+			console.log(successMessage)
+			$window.open('/api/v1/invoiceMaker/view', '_blank');
+
+		})
+		.error(function (error) {
+			console.log(error)
+		});
+		
+	}
+
 
 		
 	  
@@ -163,7 +195,7 @@ angular.module('myApp.controllers', []).
 
 	$scope.generateInvoice = function(vehicle,person,invoice){
 		console.log(vehicle,person,invoice)
-		$scope.result = invoiceService.generate(vehicle,person,invoice)
+		$scope.result = invoiceService.generateNew(vehicle,person,invoice)
 		.success(function(successMessage){
 			console.log(successMessage)
 			$window.open('/api/v1/invoiceMaker/view', '_blank');
@@ -172,6 +204,20 @@ angular.module('myApp.controllers', []).
 		.error(function (error) {
 			console.log(error)
 		});
+
+		$scope.result3 = invoiceService.invoiceByVehicle(vehicle)
+			.success(function(invoices){
+				console.log("dataSharing")
+				dataSharing.vehicle.invoices = invoices.invoiceList
+				$scope.vehicle.invoices = dataSharing.vehicle.invoices;
+				dataSharing.invoice = {}
+				$scope.invoice = {}
+
+				
+			})
+			.error(function (error) {
+				alert('Unable to load invoice data: ' + error.message);
+			})
 		
 	}
 
@@ -188,4 +234,19 @@ angular.module('myApp.controllers', []).
 
 
 
+  }])
+
+  .controller('bugCtrl',['$scope','bugService',function ($scope,bugService) {
+	  $scope.submitBug = function(bug){
+		$scope.result = bugService.submitBug(bug)
+		.success(function(successMessage){
+			alert("submitted");
+		})
+		.error(function (error) {
+			alert("error");
+		});
+	  
+	  }
+	
   }]);
+

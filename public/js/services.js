@@ -37,7 +37,7 @@ angular.module('myApp.services', [])
 	}])
 
 	.service('invoiceService', ["$http",function($http) {
-		this.invoice = {"items":[]};
+		this.invoice = {"items":[],"mot":false};
 		this.id = 0;
 		this.vatRate = 0.2;
 
@@ -70,6 +70,7 @@ angular.module('myApp.services', [])
 		this.add = function(item,price,quantity){
 			this.newEntry = {"id":this.id ,"item":item,"price":parseFloat(price),"quantity":parseFloat(quantity),"vat":parseFloat(price) * parseFloat(quantity) * this.vatRate,"amount":parseFloat(price) * parseFloat(quantity) +  parseFloat(price) * parseFloat(quantity) * this.vatRate }
 			if (this.newEntry.item.toLowerCase() == "mot"){
+				this.invoice.mot = true;
 				this.newEntry.vat = 0;
 			}
 			console.dir(this.newEntry);
@@ -88,13 +89,22 @@ angular.module('myApp.services', [])
 			}
 		}
 
-		this.generate = function(vehicle,person,invoice){
+		this.generateNew = function(vehicle,person,invoice){
 			return $http.post('/api/v1/invoiceMaker/render',{"vehicle":vehicle,"person":person,"invoice":invoice});
+		};
+
+		this.generateRecord = function(record){
+			return $http.post('/api/v1/invoiceMaker/render',{"record":record});
 		};
 
 		this.save = function(vehicle,person,invoice){
 			return $http.post('/api/v1/invoices',{"vehicle":vehicle,"person":person,"invoice":invoice});
 		};
+
+		this.invoiceByVehicle = function(vehicle){
+			return $http.get('/api/v1/invoiceByVehicle/'+vehicle._id);
+		};
+
 
 
 
@@ -105,6 +115,15 @@ angular.module('myApp.services', [])
 		this.vehicle = {'regNum':null, 'owner':null}
 		this.invoice = {}
 	}])
+	
+	.service('bugService', ['$http', function($http) {
+		
+		this.submitBug = function(bug){
+			return $http.post('/api/v1/bugs/',{"bug":bug});
+		}
+
+	}])
+
 	
 
 	.service('peopleService', ['$http', function($http) {

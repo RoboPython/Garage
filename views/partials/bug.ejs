@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<div class="container-fluid" style="width:100%">
+	<div ng-controller="invoiceCtrl">
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="row">
+					<div class="col-md-3">
+						<h2>Bug Reporter</h2>
+					</div>
+				</div>
+				<form>
+					<div class="row">
+						<div class="col-md-7">
+							<input type="text" placeholder="Give a short title to the bug" ng-model="bug.title" class="form-control">
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-7">
+							<div class="form-horizontal">
+							    <div class="form-group">
+									<div class="col-md-12">
+										<textarea class="form-control" rows="3" ng-model="bug.description" placeholder="Please describe the bug and give as much useful information in reproducing it as possible" required></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-7">
+							<button  type="button" ng-click="submitBug(bug)" class="btn btn-default">Submit Bug</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

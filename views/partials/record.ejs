@@ -271,20 +271,29 @@
 							<input ng-model="vehicle.mileage" type="text" class="form-control" placeholder="Insert Vehicle Mileage">
 						</div>
 					</div>
-					<br>
-					<br>
-					<div ng-show="vehicle.invoices.length > 0" class="row">
+					<div class="row">
+						<div class="col-md-1 col-md-offset-3">
+							<button type="button" class="btn btn-default" ng-click="getInvoices(vehicle)" style="margin-top:3px;">View Invoices</button>
+						</div>
+						<div class="col-md-3 col-md-offset-1">
+							<a  href="invoice"><button type="button" class="btn btn-default" style="margin-top:3px;">Create New Invoice </button></a>
+						</div>
+					</div>
+					<div  class="row" ng-show="invoiceViewer">
 						<div class="col-md-8 col-md-offset-2">
 							<div class="scroll">
-								<div class="invoice row">
-									<div class="col-md-6">
-										<h4>20/12/14</h4>
+								<div class="invoice row" ng-repeat="x in vehicle.invoices">
+									<div class="col-md-3">
+										<h4>{{x.data.date}}</h4>
+									</div>
+									<div class="col-md-3 col-md-offset-1">
+										<h4 ng-show="x.data.mot" style="color:red;">MOT</h4>
 									</div>
 									<div class= "col-md-3">
-										<h4>£9.00</h4>
+										<h4>£{{x.data.invoice.totalIncVat}}</h4>
 									</div>
 									<div class="col-md-3">
-										<button type="button" class="btn btn-default" style="margin-top:3px;">Open</button>
+										<button type="button" class="btn btn-default" ng-click="generateInvoice(x)" style="margin-top:3px;">Open</button>
 									</div>
 								</div>
 							</div>

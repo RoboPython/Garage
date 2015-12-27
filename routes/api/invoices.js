@@ -12,7 +12,6 @@ router.post('/', function(req, res, next) {
 		};
 		if(!err) {
 			var collection = db.collection('invoices');
-
 			var person = req.body.person;
 			var vehicle = req.body.vehicle;
 			var invoice = req.body.invoice;
@@ -25,7 +24,9 @@ router.post('/', function(req, res, next) {
 						 "invoiceNum":334,
 						 "mileage":vehicle.mileage,
 						 "car":vehicle.make +" "+vehicle.model,
+						 "vehicle": vehicle._id,
 						 "regNum": vehicle.regNum,
+						 "mot": invoice.mot,
 						 "invoice":{
 									"items":[],
 									"totalIncVat":invoice.totalIncVat.toFixed(2),
