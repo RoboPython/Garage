@@ -105,6 +105,11 @@ angular.module('myApp.services', [])
 			return $http.get('/api/v1/invoiceByVehicle/'+vehicle._id);
 		};
 
+		this.invoiceNumber = function(){
+			return $http.get('/api/v1/invoiceNumber');
+		};
+		
+
 
 
 
@@ -123,6 +128,15 @@ angular.module('myApp.services', [])
 		}
 
 	}])
+
+	.service('loginService', ['$http', function($http) {
+		
+		this.login = function(user){
+			return $http.post('/login',{user});
+		}
+
+	}])
+
 
 	
 

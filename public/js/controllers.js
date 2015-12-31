@@ -159,7 +159,8 @@ angular.module('myApp.controllers', []).
 				}
 			});
 		}
-
+	
+	//generates from existing record
 	$scope.generateInvoice = function(record){
 		$scope.result = invoiceService.generateRecord(record)
 		.success(function(successMessage){
@@ -193,6 +194,8 @@ angular.module('myApp.controllers', []).
 		$scope.invoice = invoiceService.remove(id)
 	}
 
+	//generates from new data
+	//Called only in generateSaveInvoice
 	$scope.generateInvoice = function(vehicle,person,invoice){
 		console.log(vehicle,person,invoice)
 		$scope.result = invoiceService.generateNew(vehicle,person,invoice)
@@ -220,7 +223,8 @@ angular.module('myApp.controllers', []).
 			})
 		
 	}
-
+	
+	//called only in generateSaveInvoice
 	$scope.saveInvoice = function(vehicle,person,invoice){
 		$scope.result = invoiceService.save(vehicle,person,invoice)
 		.success(function(successMessage){
@@ -232,8 +236,40 @@ angular.module('myApp.controllers', []).
 		
 	}
 
+	$scope.generateSaveInvoice = function(){
+		$scope.invoiceNumber = invoiceService.invoiceNumber()
+			.success(function(invoiceNumber){
+				console.log("success")
+				$scope.invoice.invoiceNumber = invoiceNumber.number;
+				$scope.saveInvoice($scope.vehicle,$scope.person,$scope.invoice);
+				$scope.generateInvoice($scope.vehicle,$scope.person,$scope.invoice);
+
+			})
+			.error(function(err){
+				console.log(err)
+			});
+		
+	
+	}
 
 
+
+
+
+  }])
+  .controller('loginCtrl',['$scope','$window','loginService',function ($scope,$window,loginService) {
+	  $scope.login = function(user){
+		$scope.result = loginService.login(user)
+		.success(function(successMessage){
+			alert("login successful");
+			$window.location = "/record"
+		})
+		.error(function (error) {
+			$window.location = "/login"
+		});
+	  
+	  }
+	
   }])
 
   .controller('bugCtrl',['$scope','bugService',function ($scope,bugService) {

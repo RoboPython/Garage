@@ -25,7 +25,7 @@ router.post('/render', function(request, response){
 
 			var fillInfo={"data":{"customerName":person.givenName + ' ' +person.familyName,
 						 "date": String(datetime.getDate()) +'/'+ String((datetime.getMonth() + 1))+'/'+String(datetime.getFullYear()),
-						 "invoiceNum":334,
+						 "invoiceNum":invoice.invoiceNumber,
 						 "mileage":vehicle.mileage,
 						 "car":vehicle.make +" "+vehicle.model,
 						 "regNum": vehicle.regNum,
@@ -48,7 +48,6 @@ router.post('/render', function(request, response){
 			}
 		}else{
 			var fillInfo = request.body.record;
-			console.log("***************")
 		}
 
 

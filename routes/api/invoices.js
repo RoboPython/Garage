@@ -21,7 +21,7 @@ router.post('/', function(req, res, next) {
 
 			var fillInfo={"data":{"customerName":person.givenName + ' ' +person.familyName,
 						 "date": String(datetime.getDate()) +'/'+ String((datetime.getMonth() + 1))+'/'+String(datetime.getFullYear()),
-						 "invoiceNum":334,
+						 "invoiceNum":invoice.invoiceNumber,
 						 "mileage":vehicle.mileage,
 						 "car":vehicle.make +" "+vehicle.model,
 						 "vehicle": vehicle._id,
@@ -43,8 +43,7 @@ router.post('/', function(req, res, next) {
 				fillInfo.data.invoice.items.push(invoice.items[i]);
 			}
 
-			
-			collection.insert(fillInfo);
+			db.collection('invoices').insert(fillInfo);
 			res.send("done");
 			db.close();
 		};

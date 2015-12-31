@@ -11,6 +11,10 @@ angular.module('myApp', [
 
 config(function ($routeProvider, $locationProvider) {
   $routeProvider
+    .when('/login', {
+      templateUrl: 'partials/login',
+      controller: 'loginCtrl'
+    })
     .when('/bug', {
       templateUrl: 'partials/bug',
       controller: 'bugCtrl'
